@@ -17,18 +17,7 @@ export const mutations: MutationTree<State> = {
 }
 
 export const actions: ActionTree<State, any> = {
-  async setUser({ commit }, record: firebase.User | null) {
-    if (record && firebase.messaging.isSupported()) {
-      const token = await firebase.messaging().getToken()
-      firebase
-        .firestore()
-        .collection('users')
-        .doc(record.uid)
-        .set({
-          token,
-          createAt: new Date()
-        })
-    }
+  setUser({ commit }, record: firebase.User | null) {
     commit('setUser', record)
   }
 }

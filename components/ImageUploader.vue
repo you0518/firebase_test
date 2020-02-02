@@ -59,6 +59,11 @@ export default Vue.extend({
       imageUrl: ''
     }
   },
+  computed: {
+    URL() {
+      return window.URL || window.webkitURL
+    }
+  },
   watch: {
     initImageUrl: {
       handler(imageUrl: string | null) {
@@ -66,6 +71,9 @@ export default Vue.extend({
       },
       immediate: true
     }
+  },
+  beforeDestroy() {
+    this.URL.revokeObjectURL(this.imageUrl)
   },
   methods: {
     openImageSelectDialog() {
@@ -102,15 +110,10 @@ export default Vue.extend({
       return fileList[0] || null
     },
     changeImage(file: File) {
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        const result = event.target?.result
-        if (typeof result !== 'string') {
-          return
-        }
-        this.imageUrl = result
+      if (this.imageUrl) {
+        this.URL.revokeObjectURL(this.imageUrl)
       }
-      reader.readAsDataURL(file)
+      this.imageUrl = this.URL.createObjectURL(file)
     },
     removeImage() {
       this.imageUrl = ''

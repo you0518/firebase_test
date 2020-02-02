@@ -49,9 +49,6 @@ export default Vue.extend({
     },
     async uploadImage(payload: { file: File }) {
       await this.createContent({ uid: this.user.uid, file: payload.file })
-      if (!this.$firebase.messaging.isSupported()) {
-        setTimeout(() => this.$store.dispatch('Content/getList'), 5000)
-      }
     },
     logout() {
       this.$firebase

@@ -30,7 +30,8 @@ const entity: Entity<Content> = {
     return {
       ...base,
       uid: object.uid,
-      name: object.name
+      name: object.name,
+      downloadUrl: object.downloadUrl
     }
   },
 

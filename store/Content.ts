@@ -26,10 +26,12 @@ export const actions: ActionTree<State, any> = {
     const result = await firebase
       .firestore()
       .collection('contents')
+      .orderBy('createAt', 'desc')
       .get()
     if (result.empty) {
       return Promise.reject(new Error('empty'))
     }
+    // ファイル参照用URLの取得
     const records = await Promise.all(
       result.docs.map(async (record) => {
         const content = contentBase.fromObject(record.data())
@@ -53,14 +55,23 @@ export const actions: ActionTree<State, any> = {
     commit('add', content)
   },
 
-  async create(_, payload: { uid: string; file: File }) {
+  async create({ commit }, payload: { uid: string; file: File }) {
+    const { uid, file } = payload
     const storage = firebase.storage()
     const result = await storage
       .ref('contents')
-      .child(payload.uid)
+      .child(uid)
       .child(uniqueId())
-      .put(payload.file)
-
+      .put(file)
+    const downloadUrl = await result.ref.getDownloadURL()
+    const record = contentBase.makeEntity({
+      uid,
+      name: result.ref.fullPath,
+      downloadUrl,
+      createAt: new Date(result.metadata.timeCreated)
+    })
+    console.log('content', record)
+    commit('add', record)
     return result
   }
 }

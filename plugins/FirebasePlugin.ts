@@ -3,7 +3,6 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/firestore'
-import 'firebase/messaging'
 import 'firebaseui/dist/firebaseui.css'
 
 // Initialize Firebase
@@ -26,17 +25,6 @@ declare module 'vue/types/vue' {
 
 const FirebasePlugin: Plugin = async ({ store }, inject) => {
   inject('firebase', firebase)
-
-  if (firebase.messaging.isSupported()) {
-    const messaging = firebase.messaging()
-    messaging.usePublicVapidKey(
-      process.env.FIREBASE_USE_PUBLICK_VALID_KEY || ''
-    )
-    messaging.onMessage(async (payload: any) => {
-      console.log('fcm onMessage', payload)
-      await store.dispatch('Content/get', payload.data)
-    })
-  }
 
   await new Promise((resolve) => {
     firebase.auth().onAuthStateChanged(async (user) => {

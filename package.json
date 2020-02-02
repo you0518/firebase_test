@@ -1,0 +1,51 @@
+{
+  "name": "hyge-10th-project",
+  "version": "1.0.0",
+  "description": "My posh Nuxt.js project",
+  "author": "astrsk",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "@types/jest": "^24.9.1",
+    "@types/js-cookie": "^2.2.4",
+    "@types/lodash": "^4.14.149",
+    "firebase": "^7.7.0",
+    "firebaseui": "^4.4.0",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.5.6",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-config-typescript": "^1.0.0",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/vuetify": "^1.0.0",
+    "@vue/composition-api": "^0.3.4",
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "axios-mock-adapter": "^1.17.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "cross-env": "^7.0.0",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^24.1.0",
+    "lint-staged": "^8.2.1",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.16.4",
+    "pug": "^2.0.4",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.2",
+    "vue-jest": "^4.0.0-0"
+  }
+}

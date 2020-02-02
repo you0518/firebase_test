@@ -17,8 +17,7 @@ firebase.initializeApp({
   appId: process.env.FIREBASE_APP_ID,
   measurementId: process.env.FIREBASE_MEASUREMENT_ID
 })
-const messaging = firebase.messaging()
-messaging.usePublicVapidKey(process.env.FIREBASE_USE_PUBLICK_VALID_KEY || '')
+
 declare module 'vue/types/vue' {
   interface Vue {
     $firebase: typeof firebase
@@ -27,10 +26,18 @@ declare module 'vue/types/vue' {
 
 const FirebasePlugin: Plugin = async ({ store }, inject) => {
   inject('firebase', firebase)
-  messaging.onMessage(async (payload: any) => {
-    console.log('fcm onMessage', payload)
-    await store.dispatch('Content/get', payload.data)
-  })
+
+  if (firebase.messaging.isSupported()) {
+    const messaging = firebase.messaging()
+    messaging.usePublicVapidKey(
+      process.env.FIREBASE_USE_PUBLICK_VALID_KEY || ''
+    )
+    messaging.onMessage(async (payload: any) => {
+      console.log('fcm onMessage', payload)
+      await store.dispatch('Content/get', payload.data)
+    })
+  }
+
   await new Promise((resolve) => {
     firebase.auth().onAuthStateChanged(async (user) => {
       await store.dispatch('User/setUser', user)

@@ -15,7 +15,7 @@
       .remove(v-if="imageUrl")
         button(@click="removeImage") ✖︎
     .ImageUploader_Hidden
-      input(type="file" ref="uploadedImage" @change="handleChangeImage" accept="image/jpeg,image/png")
+      input(type="file" ref="uploadedImage" @change="handleChangeImage")
 </template>
 
 <script lang="ts">

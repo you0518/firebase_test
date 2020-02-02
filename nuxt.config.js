@@ -23,6 +23,7 @@ export default {
   server: {
     host: '0.0.0.0'
   },
+  env: process.env,
   /*
    ** Headers of the page
    */

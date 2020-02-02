@@ -24,8 +24,8 @@ const entity: Entity<Content> = {
     if (!isNotNullType(object.name, 'string')) {
       throw new InvalidValueError('object.name', object.name)
     }
-    if (!isOptionalType(object.name, 'string')) {
-      throw new InvalidValueError('object.name', object.name)
+    if (!isOptionalType(object.downloadUrl, 'string')) {
+      throw new InvalidValueError('object.downloadUrl', object.downloadUrl)
     }
     return {
       ...base,
@@ -38,7 +38,8 @@ const entity: Entity<Content> = {
     const input: Content = {
       ...entityBase.makeEntity(value),
       uid: value.uid || '',
-      name: value.name || ''
+      name: value.name || '',
+      downloadUrl: value.downloadUrl
     }
     return this.fromObject(input)
   },
@@ -47,7 +48,8 @@ const entity: Entity<Content> = {
     const input: Partial<Content> = {
       ...entityBase.assignEntity(record, value),
       uid: value.uid,
-      name: value.name
+      name: value.name,
+      downloadUrl: value.downloadUrl
     }
     return this.fromObject(input)
   }

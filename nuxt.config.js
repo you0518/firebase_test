@@ -64,14 +64,7 @@ export default {
     '@nuxtjs/dotenv'
   ],
   router: {
-    middleware: ['Authentication'],
-    extendRoutes(routes, resolve) {
-      routes.push({
-        name: 'custom',
-        path: '*',
-        component: resolve(__dirname, 'pages/index.vue')
-      })
-    }
+    middleware: ['Authentication']
   },
   /*
    ** Nuxt.js modules
@@ -113,10 +106,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-      if (!ctx.isDev) {
-        config.output.publicPath = '_nuxt/'
-      }
-    }
+    extend(config, ctx) {}
   }
 }
